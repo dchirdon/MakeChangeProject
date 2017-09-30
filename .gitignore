@@ -1,0 +1,74 @@
+import java.util.Scanner;
+import java.lang.Math;
+import java.util.*;
+import java.text.NumberFormat;
+
+import java.util.Scanner;
+
+[code=java]public class Change
+{
+    public static void main (String[] args)
+    {
+        double due, tender, remainder;
+
+        Scanner scan = new Scanner ( System.in );
+
+        NumberFormat fmt1 = NumberFormat.getCurrencyInstance();
+
+        System.out.println( "Enter the amount due: " );
+        due = scan.nextDouble();
+        System.out.println( "Amount due: " + fmt1.format (due));
+        System.out.println( "Enter the amount tender: " );
+        tender = scan.nextDouble();
+        System.out.println( "Amount tender: " + fmt1.format (tender));
+
+        while (due > tender)
+        {
+            System.out.println( "Enter new amount tender: ");
+            tender = scan.nextDouble();
+            System.out.println( "Amount tender: " + fmt1.format (tender));
+        }
+
+        remainder = ((tender - due) * 100);
+        double newremainder = Math.round(remainder*100) / 100;
+        System.out.println( "Your change is: " + fmt1.format (remainder / 100));
+        int dollars = (int)remainder / 100;
+        int coins =(int)newremainder % 100;
+
+        if (dollars >= 1)
+        {
+            System.out.println("dollars: " + dollars);
+        }
+
+        while (coins > 0)
+        {
+            if (coins >= 25)
+            {
+                int prequarters = coins / 25;
+                int quarters = prequarters - (((prequarters * 100) % 100) / 100);
+                System.out.println("quarters: " + quarters);
+                coins = coins -(quarters * 25);
+            }
+            else if (coins >= 10)
+            {
+                int predimes = coins / 10;
+                int dimes = predimes - (((predimes * 100) % 100) / 100);
+                System.out.println("dimes: " + dimes);
+                coins = coins - (dimes * 10);
+            }
+            else if (coins >= 5)
+            {
+                int prenickles = coins / 5;
+                int nickles = prenickles - (((prenickles * 100) % 100) / 100);
+                System.out.println("nickles: " + nickles);
+                coins = coins - (nickles * 5);
+            }
+            else if (coins >= 1)
+            {
+                int pennies = coins;
+                System.out.println("pennies: " + pennies);
+                coins = coins - (pennies * 1);
+            }
+        }
+    }
+}
